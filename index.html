@@ -1,72 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Estadísticas</title>
-  <meta name="theme-color" 
-    content="#000000">
-<link rel="manifest" 
-  href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="manifest.json">
+
   <style>
-    body { font-family: Arial; padding: 20px; }
-    input, button { margin: 5px; padding: 5px; }
-    table { margin-top: 20px; border-collapse: collapse; }
-    td, th { border: 1px solid black; padding: 5px; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 10px;
+    }
+
+    header {
+      background: #000;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 2px solid #222;
+    }
+
+    .card {
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin: 3px 0;
+      font-size: 14px;
+    }
+
+    button {
+      background: #000;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
+
 <body>
+  <header>Mis Estadísticas 2026</header>
 
-<h2>Registrar Partido</h2>
+  <h1>Agregar Partido</h1>
+  <button onclick="agregarPartido()">+ Nuevo Partido</button>
 
-<input type="text" id="rival" placeholder="Rival">
-<input type="number" id="goles" placeholder="Goles">
-<input type="number" id="asistencias" placeholder="Asistencias">
-<input type="number" id="minutos" placeholder="Minutos">
-<button onclick="agregar()">Agregar</button>
+  <div id="partidos">
+    <!-- Cada partido se agregará aquí como card -->
+  </div>
 
-<h2>Historial</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Rival</th>
-      <th>Goles</th>
-      <th>Asistencias</th>
-      <th>Minutos</th>
-    </tr>
-  </thead>
-  <tbody id="tabla"></tbody>
-</table>
+  <script>
+    function agregarPartido() {
+      let rival = prompt("Nombre del rival:");
+      let fecha = prompt("Fecha del partido (dd/mm/aaaa):");
+      let goles = prompt("Goles:");
+      let asistencias = prompt("Asistencias:");
+      let minutos = prompt("Minutos jugados:");
 
-<script>
-let partidos = JSON.parse(localStorage.getItem("partidos")) || [];
+      if (!rival || !fecha) return;
 
-function mostrar() {
-  let tabla = document.getElementById("tabla");
-  tabla.innerHTML = "";
-  partidos.forEach(p => {
-    tabla.innerHTML += `
-      <tr>
-        <td>${p.rival}</td>
-        <td>${p.goles}</td>
-        <td>${p.asistencias}</td>
-        <td>${p.minutos}</td>
-      </tr>`;
-  });
-}
+      let card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h3>🆚 ${rival}</h3>
+        <p>📅 Fecha: ${fecha}</p>
+        <p>⚽ Goles: ${goles}</p>
+        <p>🎯 Asistencias: ${asistencias}</p>
+        <p>⏱️ Minutos: ${minutos}</p>
+      `;
 
-function agregar() {
-  let partido = {
-    rival: document.getElementById("rival").value,
-    goles: parseInt(document.getElementById("goles").value) || 0,
-    asistencias: parseInt(document.getElementById("asistencias").value) || 0,
-    minutos: parseInt(document.getElementById("minutos").value) || 0
-  };
-  partidos.push(partido);
-  localStorage.setItem("partidos", JSON.stringify(partidos));
-  mostrar();
-}
-
-mostrar();
-</script>
-
+      document.getElementById("partidos").appendChild(card);
+    }
+  </script>
 </body>
   </html>
