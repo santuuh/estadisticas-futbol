@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mis Estadísticas</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { margin: 5px; padding: 5px; }
+    table { margin-top: 20px; border-collapse: collapse; }
+    td, th { border: 1px solid black; padding: 5px; }
+  </style>
+</head>
+<body>
+
+<h2>Registrar Partido</h2>
+
+<input type="text" id="rival" placeholder="Rival">
+<input type="number" id="goles" placeholder="Goles">
+<input type="number" id="asistencias" placeholder="Asistencias">
+<input type="number" id="minutos" placeholder="Minutos">
+<button onclick="agregar()">Agregar</button>
+
+<h2>Historial</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Rival</th>
+      <th>Goles</th>
+      <th>Asistencias</th>
+      <th>Minutos</th>
+    </tr>
+  </thead>
+  <tbody id="tabla"></tbody>
+</table>
+
+<script>
+let partidos = JSON.parse(localStorage.getItem("partidos")) || [];
+
+function mostrar() {
+  let tabla = document.getElementById("tabla");
+  tabla.innerHTML = "";
+  partidos.forEach(p => {
+    tabla.innerHTML += `
+      <tr>
+        <td>${p.rival}</td>
+        <td>${p.goles}</td>
+        <td>${p.asistencias}</td>
+        <td>${p.minutos}</td>
+      </tr>`;
+  });
+}
+
+function agregar() {
+  let partido = {
+    rival: document.getElementById("rival").value,
+    goles: parseInt(document.getElementById("goles").value) || 0,
+    asistencias: parseInt(document.getElementById("asistencias").value) || 0,
+    minutos: parseInt(document.getElementById("minutos").value) || 0
+  };
+  partidos.push(partido);
+  localStorage.setItem("partidos", JSON.stringify(partidos));
+  mostrar();
+}
+
+mostrar();
+</script>
+
+</body>
+  </html>
