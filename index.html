@@ -25,17 +25,27 @@
       border-bottom: 2px solid #222;
     }
 
-    .card {
+    .form-container {
       background: white;
       padding: 12px;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin-bottom: 10px;
+      margin: 10px 0;
     }
 
-    .card p {
-      margin: 3px 0;
-      font-size: 14px;
+    .form-container label {
+      display: block;
+      margin: 5px 0 2px;
+      font-weight: bold;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
 
     button {
@@ -54,10 +64,17 @@
       background: #333;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 20px;
+    .card {
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       margin-bottom: 10px;
+    }
+
+    .card p {
+      margin: 3px 0;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -65,34 +82,54 @@
 <body>
   <header>Mis Estadísticas 2026</header>
 
-  <h1>Agregar Partido</h1>
-  <button onclick="agregarPartido()">+ Nuevo Partido</button>
+  <div class="form-container">
+    <label for="rival">Partido:</label>
+    <input type="text" id="rival" placeholder="Nombre del rival">
+
+    <label for="goles">Goles:</label>
+    <input type="number" id="goles" placeholder="0" min="0">
+
+    <label for="asistencias">Asistencias:</label>
+    <input type="number" id="asistencias" placeholder="0" min="0">
+
+    <label for="minutos">Minutos:</label>
+    <input type="number" id="minutos" placeholder="0" min="0">
+
+    <button onclick="agregarPartido()">Agregar Partido</button>
+  </div>
 
   <div id="partidos">
-    <!-- Cada partido se agregará aquí como card -->
+    <!-- Las partidas se agregan aquí -->
   </div>
 
   <script>
     function agregarPartido() {
-      let rival = prompt("Nombre del rival:");
-      let fecha = prompt("Fecha del partido (dd/mm/aaaa):");
-      let goles = prompt("Goles:");
-      let asistencias = prompt("Asistencias:");
-      let minutos = prompt("Minutos jugados:");
+      let rival = document.getElementById("rival").value;
+      let goles = document.getElementById("goles").value;
+      let asistencias = document.getElementById("asistencias").value;
+      let minutos = document.getElementById("minutos").value;
 
-      if (!rival || !fecha) return;
+      if (!rival) {
+        alert("El campo Partido es obligatorio");
+        return;
+      }
 
       let card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
         <h3>🆚 ${rival}</h3>
-        <p>📅 Fecha: ${fecha}</p>
         <p>⚽ Goles: ${goles}</p>
         <p>🎯 Asistencias: ${asistencias}</p>
         <p>⏱️ Minutos: ${minutos}</p>
       `;
 
       document.getElementById("partidos").appendChild(card);
+
+      // Limpiar inputs
+      document.getElementById("rival").value = "";
+      document.getElementById("goles").value = "";
+      document.getElementById("asistencias").value = "";
+      document.getElementById("minutos").value = "";
     }
   </script>
 </body>
