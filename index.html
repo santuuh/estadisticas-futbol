@@ -1,136 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mis Estadísticas</title>
-  <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha Jugador</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      margin: 0;
-      padding: 10px;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+}
 
-    header {
-      background: #000;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      border-bottom: 2px solid #222;
-    }
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-    .form-container {
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin: 10px 0;
-    }
+.profile img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #ccc;
+}
 
-    .form-container label {
-      display: block;
-      margin: 5px 0 2px;
-      font-weight: bold;
-    }
+.name {
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    .form-container input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+.sub {
+  font-size: 14px;
+  color: gray;
+}
 
-    button {
-      background: #000;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 16px;
-      width: 100%;
-      margin-bottom: 15px;
-      cursor: pointer;
-    }
+.stats-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  gap: 30px;
+}
 
-    button:hover {
-      background: #333;
-    }
+.stat-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-    .card {
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin-bottom: 10px;
-    }
+.icon {
+  font-size: 40px;
+}
 
-    .card p {
-      margin: 3px 0;
-      font-size: 14px;
-    }
-  </style>
+.card-yellow {
+  width: 50px;
+  height: 70px;
+  background: yellow;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.card-red {
+  width: 50px;
+  height: 70px;
+  background: red;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.bottom-stats {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  font-size: 16px;
+}
+</style>
 </head>
 
 <body>
-  <header>Mis Estadísticas 2026</header>
 
-  <div class="form-container">
-    <label for="rival">Partido:</label>
-    <input type="text" id="rival" placeholder="Nombre del rival">
+<div class="profile">
+  <img src="" alt="Foto">
+  <div>
+    <div class="name">Santi</div>
+    <div class="sub">Edad: 16</div>
+    <div class="sub">Club: Talleres</div>
+  </div>
+</div>
 
-    <label for="goles">Goles:</label>
-    <input type="number" id="goles" placeholder="0" min="0">
-
-    <label for="asistencias">Asistencias:</label>
-    <input type="number" id="asistencias" placeholder="0" min="0">
-
-    <label for="minutos">Minutos:</label>
-    <input type="number" id="minutos" placeholder="0" min="0">
-
-    <button onclick="agregarPartido()">Agregar Partido</button>
+<div class="stats-grid">
+  <div>
+    <div class="stat-title">CONVOCADO</div>
+    <div class="icon">⚽</div>
   </div>
 
-  <div id="partidos">
-    <!-- Las partidas se agregan aquí -->
+  <div>
+    <div class="stat-title">TITULAR</div>
+    <div class="icon">👟</div>
   </div>
 
-  <script>
-    function agregarPartido() {
-      let rival = document.getElementById("rival").value;
-      let goles = document.getElementById("goles").value;
-      let asistencias = document.getElementById("asistencias").value;
-      let minutos = document.getElementById("minutos").value;
+  <div>
+    <div class="stat-title">SUPLENTE</div>
+    <div class="card-yellow"></div>
+  </div>
 
-      if (!rival) {
-        alert("El campo Partido es obligatorio");
-        return;
-      }
+  <div>
+    <div class="card-red"></div>
+  </div>
+</div>
 
-      let card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h3>🆚 ${rival}</h3>
-        <p>⚽ Goles: ${goles}</p>
-        <p>🎯 Asistencias: ${asistencias}</p>
-        <p>⏱️ Minutos: ${minutos}</p>
-      `;
+<div class="bottom-stats">
+  <div>MINUTOS: 540</div>
+  <div>PROM. GOL: 0.75</div>
+</div>
 
-      document.getElementById("partidos").appendChild(card);
-
-      // Limpiar inputs
-      document.getElementById("rival").value = "";
-      document.getElementById("goles").value = "";
-      document.getElementById("asistencias").value = "";
-      document.getElementById("minutos").value = "";
-    }
-  </script>
 </body>
-  </html>
+</html>
